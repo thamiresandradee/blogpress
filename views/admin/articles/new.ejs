@@ -1,0 +1,65 @@
+<%- include('../../partials/header') %>
+<body>
+
+    <%- include('../../partials/navbar') %>
+
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h2>Cadastro de artigos</h2>
+            </div>
+            <div class="card-body">
+                <form action="/articles/save" method="POST">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" name="title" class="form-control" placeholder="Defina o título do artigo">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="body" id="body" class="form-control" placeholder="Escreva o artigo aqui"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select name="categoryId" class="form-control">
+                            <% categories.forEach((category) => { %>
+                                <option value="<%= category.id %>"><%= category.title %></option>
+                            <% })%>
+                        </select>
+                    </div>
+            </div>
+            <div class="card-footer">
+                    <button class="btn btn-sm btn-success">Cadastrar</button>
+                    <a class="btn btn-sm btn-secondary" href="/admin/articles">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+</body>
+<%- include('../../partials/footer') %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: "#body",
+        plugins: [
+                    'advlist',
+                    'autolink',
+                    'link',
+                    'image',
+                    'lists',
+                    'preview',
+                    'searchreplace',
+                    'wordcount',
+                    'fullscreen',
+                    'insertdatetime',
+                    'media',
+                    'save',
+                    'table',
+                    'emoticons',
+                ]
+    })
+
+</script>

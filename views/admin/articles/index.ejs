@@ -1,0 +1,58 @@
+<%- include('../../partials/header') %>
+<body>
+
+    <%- include('../../partials/navbar') %>
+
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h2>Artigos</h2>
+                <a href="/admin/articles/new" class="btn btn-sm btn-success">Add Artigo</a>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Slug</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% articles.forEach(article => { %>
+                    <tr>
+                        <td><%= article.id %></td>
+                        <td><%= article.title %></td>
+                        <td><%= article.slug %></td>
+                        <td><%= article.category.title %></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" href="/admin/articles/edit/<%= article.id %>">Editar</a>
+                            <form action="/articles/delete" method="POST" style="display:inline;" onsubmit="confirmDelete(event, this)">
+                                <input type="hidden" name="id" value="<%= article.id %>">
+                                <button class="btn btn-sm btn-danger">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+<%- include('../../partials/footer') %>
+
+<script>
+    function confirmDelete(event, form){
+        event.preventDefault();
+        var decision = confirm("Você quer deletar este artigo?")
+
+        if(decision){
+            form.submit();
+        }else{
+            console.log("Não quero deletar, isso foi um acidente!");
+        }
+    }
+</script>
