@@ -1,0 +1,28 @@
+<%- include('../../partials/header') %>
+<body>
+
+    <%- include('../../partials/navbar') %>
+
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h2>Cadastro de categorias</h2>
+            </div>
+            <div class="card-body">
+                <form action="/categories/save" method="POST">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" name="title" class="form-control" placeholder="Defina o título da categoria">
+                    </div>
+            </div>
+            <div class="card-footer">
+                    <button class="btn btn-sm btn-success">Cadastrar</button>
+                    <a class="btn btn-sm btn-secondary" href="/admin/categories">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+</body>
+<%- include('../../partials/footer') %>
