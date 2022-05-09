@@ -1,8 +1,27 @@
 <%- include('partials/header') %>
 <body>
+    <%- include('partials/home-navbar') %>
+    <br>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Bem-vindo(a)!</h1>
+            <p class="lead">Este é um blog simples desenvolvido em Nde.js</p>
+            <hr class="my-4">
+            <p>Para nível de aprendizado, estou fazendo a construção de um Blog em Node.js com Express, Sequelize, EJS, Body-Parser e utilizando o TinyMCE</p>
+            <a class="btn btn-sm btn-primary btn-lg" href="#" role="button">Leia mais</a>
+          </div>
 
-
-<h1>Testando a view</h1>
-
+        <% articles.forEach(article => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="/category/<%= article.slug %>" class="btn btn-sm btn-success">Ler artigo</a>
+                </div>
+            </div>
+            <br>
+        <% }) %>
+    </div>
 </body>
 <%- include('partials/footer') %>
