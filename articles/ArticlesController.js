@@ -106,19 +106,41 @@ router.post("/articles/update", (req, res) => {
 router.get("/articles/page/:num", (req, res) => {
     var page = req.params.num;
     var offset = 0;
-    var limitePage = 2;
+    var limitePage = 4;
 
     if(isNaN(page) || page == 1){
         offset = 0;
     }else{
-        offset = parseInt(page) * limitePage;
+        offset = parseInt(page -1) * limitePage;
     }
 
     Article.findAndCountAll({
         limit: limitePage,
-        offset: offset
+        offset: offset,
+        order: [
+            ['id', 'DESC']
+        ],
     }).then(articles => {
-        res.json(articles);
+
+        var next;
+
+        if(offset + limitePage >= articles.count){
+            next = false;
+        }else{
+            next = true;
+        }
+
+        var result = {
+            page: parseInt(page),
+            next: next,
+            articles: articles
+        }
+
+        Category.findAll().then(categories => {
+            res.render("admin/articles/page", {result: result, categories:categories})
+        });
+
+        //res.json(result);
     })
 })
 
